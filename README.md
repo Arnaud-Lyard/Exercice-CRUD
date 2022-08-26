@@ -26,3 +26,9 @@ Lancer la commande ``npm run dev`` pour démarrer Vue.js.
 Vue.js 3
 Node.js
 SQLite
+
+### A faire
+Validation du formulaire côté Vue.js : l'utilisateur ne doit pas pouvoir envoyer de formulaire vide.
+Mise à jour de la liste de TO DO : l'utilisateur ne devrait pas avoir à rafraichir la page pour voir sa TO DO enregistrée.
+Après modification, la liste de TO DO devrait être rafraichie.
+L'utilisateur ne doit pas pouvoir modifier des données inexistantes.

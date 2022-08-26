@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h1>MODIFIER MA TODO</h1>
+    <h1>MODIFIER MA TO DO</h1>
     <div class="form">
 
         <form @submit.prevent="handleSubmit">

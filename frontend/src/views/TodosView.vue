@@ -1,5 +1,5 @@
 <template>
-    <h1>TODOS LIST</h1>
+    <h1>TO DO LIST</h1>
     <div class="container">
       <div class="left-content">
         <div v-if="error">Il y a eu une erreur {{ error.message }}</div>
