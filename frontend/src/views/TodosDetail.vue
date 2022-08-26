@@ -1,13 +1,6 @@
 <template>
 <div>
-    <div class="container">
-        <div class="content">
-                <span class="save"><font-awesome-icon icon="fa-solid fa-floppy-disk" /></span>
-                <span class="delete"><font-awesome-icon icon="fa-solid fa-trash" /></span>
-           
-        </div>
-    </div>
-
+    <h1>MODIFIER MA TODO</h1>
     <div class="form">
 
         <form @submit.prevent="handleSubmit">
@@ -15,11 +8,11 @@
             <input type="text" name="title" v-model="title">
 
             <label for="content">Contenu de la todo</label>
-            <input type="text" name="content" v-model="content">
+            <textarea name="content" id="" cols="30" rows="10" v-model="content"></textarea>
 
-            <button type="submit">Enregistrer</button>
+            <button class="button-submit" type="submit">Enregistrer</button>
+            <button @click="handleDelete" class="button-delete">Supprimer</button>
         </form>
-
     </div>
 
 </div>
@@ -29,33 +22,27 @@
 <script setup>
 
 import { ref } from 'vue'
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+const router = useRouter()
 
 const route = useRoute();
 const id = route.params.id;
 
-const data = ref('')
 const error = ref('')
 const title = ref('')
 const content = ref('')
 
-
+// Get request by id with fetch
 fetch('http://localhost:8000/api/todos/' + id)
   .then((res) => res.json())
-  .then((json) => (data.value = json))
+  .then((json) => {
+      title.value = json.title,
+      content.value = json.content
+  })
   .catch((err) => (error.value = err))
 
-// const user = ref({
-//     title: data.value,
-//     content: data.value
-// })
-
-console.log(data.title)
-
-
+// Update request with fetch
 const handleSubmit = () => {
-
-
 
     const requestOptions = {
         method: "PATCH",
@@ -69,52 +56,32 @@ const handleSubmit = () => {
       fetch("http://localhost:8000/api/todos/" + id, requestOptions)
         .then(response => response.json())
 
-        title.value = "",
-        content.value= ""
+        router.push({name: 'Todos'})
 }
 
+// Delete request with fetch
+const handleDelete = () => {
+
+    const requestOptions = {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      };
+
+      fetch("http://localhost:8000/api/todos/" + id, requestOptions)
+        .then(response => response.json())
+
+        router.push({name: 'Todos'})
+}
 </script>
 
 <style scoped>
-.container {
-    width: 80%;
-    margin: 0 auto;
-}
-.content {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
 h1 {
     color: rgb(0, 189, 223);
+    text-align: center;
 }
-.save {
-    position: absolute;
-    top: 20px;
-    right: 40px;
-    font-size: 18px;
-}
-.delete {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 18px;
-}
-.save:hover {
-    color: rgb(0, 189, 223);
-    transition: 0.3s;
-    cursor: pointer;
-}
-.delete:hover {
-    color: rgb(0, 189, 223);
-    transition: 0.3s;
-    cursor: pointer;
-}
-
 /* Form */
 .form {
-    width: 1000px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -131,7 +98,7 @@ input {
   border-radius: 4px;
   box-sizing: border-box;
 }
-form button {
+.button-submit {
   border: 0;
   background-color: rgb(0, 189, 223);
   color: #fff;
@@ -140,9 +107,32 @@ form button {
   cursor: pointer;
   font-size: 1.2em;
 }
-form button:hover {
+.button-submit:hover {
     background-color: rgb(0, 217, 255);
     transition: 0.3s;
 }
-
+.button-delete {
+  border: 0;
+  background-color: rgb(172, 0, 0);
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin-left: 10px;
+}
+.button-delete:hover {
+    background-color: rgb(238, 2, 2);
+    transition: 0.3s;
+}
+textarea {
+    width: 992px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+@media(max-width: 1040px) {
+textarea {
+    width: 100%;
+}
+}
 </style>

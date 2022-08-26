@@ -26,11 +26,6 @@
 import TodosForm from '@/components/TodosForm.vue'
 import { ref } from 'vue'
 
-// const props = defineProps({
-//   title: data.title,
-//   content: data.content
-// })
-
 const data = ref([])
 const error = ref('')
 

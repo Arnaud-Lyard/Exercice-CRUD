@@ -12,7 +12,7 @@ var HTTP_PORT = 8000
 
 // Start server
 app.listen(HTTP_PORT, () => {
-    console.log('Server running on port ' + HTTP_PORT)
+    console.log(`Server running on port ${HTTP_PORT}`)
 });
 
 // Get all todos
@@ -66,10 +66,7 @@ app.post("/api/todos/", (req, res) => {
             res.status(400).json({"error": err.message})
             return;
         }
-        res.status(201).json({
-            "message": "success",
-            "data": data
-        })
+        res.status(201).json(data)
     });
 })
 
@@ -88,10 +85,7 @@ app.patch("/api/todos/:id", (req, res) => {
                 res.status(400).json({"error": res.message})
                 return;
             }
-            res.status(200).json({
-                message: "success",
-                data: data,
-            })
+            res.status(200).json(data)
     });
 })
 

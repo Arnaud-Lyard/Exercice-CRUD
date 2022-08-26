@@ -6,7 +6,7 @@
             <input type="text" name="title" v-model="title">
 
             <label for="content">Contenu de la todo</label>
-            <input type="text" name="content" v-model="content">
+            <textarea name="content" id="" cols="30" rows="10" v-model="content"></textarea>
 
             <button type="submit">Enregistrer</button>
         </form>
@@ -17,6 +17,7 @@
 
 <script setup>
 import { ref } from 'vue'
+
 
 const title = ref('')
 const content = ref('')
@@ -39,6 +40,7 @@ const handleSubmit = () => {
 
         title.value = "",
         content.value= ""
+
 }
 
 </script>
@@ -73,5 +75,10 @@ form button {
 form button:hover {
     background-color: rgb(0, 217, 255);
     transition: 0.3s;
+}
+textarea {
+    width: 392px;
+    height: 200px;
+    margin-bottom: 20px;
 }
 </style>
